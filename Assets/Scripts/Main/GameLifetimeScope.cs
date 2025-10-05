@@ -8,10 +8,12 @@ namespace MyGame.Main
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            // Register our HelloWorldService
-            builder.Register<HelloWorldService>(Lifetime.Singleton);
+            // Register services
+            builder.Register<AudioService>(Lifetime.Singleton);
+            builder.Register<UIService>(Lifetime.Singleton);
+            builder.Register<GameFlowService>(Lifetime.Singleton);
 
-            // Register EntryPoint so VContainer can inject into it
+            // Register entry point
             builder.RegisterEntryPoint<EntryPoint>();
         }
     }
