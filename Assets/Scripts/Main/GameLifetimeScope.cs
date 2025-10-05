@@ -1,6 +1,7 @@
 using VContainer;
 using VContainer.Unity;
 using MyGame.Services;
+using MyGame.UI;
 
 namespace MyGame.Main
 {
@@ -8,13 +9,12 @@ namespace MyGame.Main
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            // Register services
-            builder.Register<AudioService>(Lifetime.Singleton);
-            builder.Register<UIService>(Lifetime.Singleton);
-            builder.Register<GameFlowService>(Lifetime.Singleton);
+            // Register our service (you can change partition count here)
+            builder.Register<UIProgressService>(Lifetime.Singleton)
+                .WithParameter("partitions", 5);
 
-            // Register entry point
-            builder.RegisterEntryPoint<EntryPoint>();
+            // Automatically inject into scene MonoBehaviours
+            builder.RegisterComponentInHierarchy<ProgressUIController>();
         }
     }
 }
